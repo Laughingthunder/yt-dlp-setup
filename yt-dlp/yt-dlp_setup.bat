@@ -31,7 +31,7 @@ if not exist "%~dp0%YTDLPFILENAME%" (
         ECHO "Done."
         ECHO.
     ) else (
-        ECHO "ERROR: Failed to download yt-dlp.exe. Press any key to exit."
+        ECHO "ERROR: Failed to download %YTDLPFILENAME%. Press any key to exit."
         pause >nul
         exit /b 1
     )
