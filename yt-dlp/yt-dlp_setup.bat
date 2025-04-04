@@ -26,7 +26,7 @@ if not exist "%~dp0%YTDLPFILENAME%" (
     ECHO "Done."
     ECHO.
     ECHO ""%YTDLPFILENAME%" does not exist. Fetching "%YTDLPFILENAME%"..."
-    "%~dp0%ARCH%\\wget.exe" --no-hsts --no-verbose -P "%~dp0." "%YTDLPURL%" 2>nul
+    "%~dp0bin\\%ARCH%\\wget.exe" --no-hsts -q --show-progress -P "%~dp0." "%YTDLPURL%"
     if exist "%~dp0%YTDLPFILENAME%" (
         ECHO "Done."
         ECHO.
@@ -52,11 +52,11 @@ ECHO "Done."
 ECHO.
 ECHO "Checking for yt-dlp ffmpeg..."
 ECHO "We'll only download it if necessary."
-"%~dp0%ARCH%\\wget.exe" -N --no-hsts --no-verbose --content-disposition -P "%~dp0ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" 2>nul
+"%~dp0bin\\%ARCH%\\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%~dp0bin\\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
 ECHO "Done."
 ECHO.
 ECHO "Extracting yt-dlp ffmpeg..."
-"%~dp0%ARCH%\\7za.exe" e "%~dp0ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
+"%~dp0bin\\%ARCH%\\7za.exe" e "%~dp0bin\\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffmpeg.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffplay.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffprobe.exe" ^
