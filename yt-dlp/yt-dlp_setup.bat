@@ -32,7 +32,6 @@ if not exist "%~dp0%YTDLPFILENAME%" (
         ECHO.
     ) else (
         ECHO "ERROR: Failed to download %YTDLPFILENAME%. Press any key to exit."
-        pause >nul
         exit /b 1
     )
 ) else (
@@ -64,6 +63,5 @@ ECHO "Extracting yt-dlp ffmpeg..."
 ECHO "Done."
 ECHO.
 endlocal
-ECHO "yt-dlp Setup has completed successfully. Press any key to exit."
-pause >nul
+ECHO "yt-dlp Setup has completed successfully.
 exit
