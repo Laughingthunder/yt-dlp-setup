@@ -63,5 +63,5 @@ ECHO "Extracting yt-dlp ffmpeg..."
 ECHO "Done."
 ECHO.
 endlocal
-ECHO "yt-dlp Setup has completed successfully.
+ECHO "yt-dlp Setup has completed successfully."
 exit
