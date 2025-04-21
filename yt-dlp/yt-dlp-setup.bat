@@ -19,10 +19,10 @@ if defined PROCESSOR_ARCHITEW6432 (
     set "YTDLPFILENAME=yt-dlp_%ARCH%.exe"
 )
 if not exist "%~dp0%YTDLPFILENAME%" (
-    timeout /t 2 /nobreak >nul
+    timeout /t 1 /nobreak >nul
     ECHO.
     ECHO "Starting yt-dlp Setup..."
-    timeout /t 2 /nobreak >nul
+    timeout /t 1 /nobreak >nul
     ECHO "Done."
     ECHO.
     ECHO ""%YTDLPFILENAME%" does not exist. Fetching "%YTDLPFILENAME%"..."
@@ -31,15 +31,15 @@ if not exist "%~dp0%YTDLPFILENAME%" (
         ECHO "Done."
         ECHO.
     ) else (
-        ECHO "ERROR: Failed to download %YTDLPFILENAME%. Press any key to exit."
+        ECHO "ERROR: Failed to download %YTDLPFILENAME%. Please rerun this script to try again.
         exit /b 1
     )
 ) else (
     if exist "%~dp0%YTDLPFILENAME%" (
-        timeout /t 2 /nobreak >nul
+        timeout /t 1 /nobreak >nul
         ECHO.
         ECHO "Starting yt-dlp Setup..."
-        timeout /t 2 /nobreak >nul
+        timeout /t 1 /nobreak >nul
         ECHO "Done."
         ECHO.
     )
@@ -55,7 +55,7 @@ ECHO "We'll only download it if necessary."
 ECHO "Done."
 ECHO.
 ECHO "Extracting yt-dlp ffmpeg..."
-"%~dp0bin\\%ARCH%\\7za.exe" e "%~dp0bin\\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
+"%~dp0bin\\%ARCH%\\7za.exe" e "%~dp0bin\\ffmpeg_dl\\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffmpeg.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffplay.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffprobe.exe" ^
