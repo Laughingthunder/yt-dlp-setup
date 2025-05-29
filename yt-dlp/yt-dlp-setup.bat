@@ -1,6 +1,8 @@
 @echo off
 REM yt-dlp Setup: Download and update yt-dlp.
 title "yt-dlp Setup"
+set "SCRIPTPATH=%~dp0"
+cd /d "%SCRIPTPATH%"
 setlocal
 if defined PROCESSOR_ARCHITEW6432 (
     set "ARCH=x64"
@@ -18,7 +20,7 @@ if defined PROCESSOR_ARCHITEW6432 (
     set "YTDLPURL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_%ARCH%.exe"
     set "YTDLPFILENAME=yt-dlp_%ARCH%.exe"
 )
-if not exist "%~dp0%YTDLPFILENAME%" (
+if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
     timeout /t 1 /nobreak >nul
     ECHO.
     ECHO "Starting yt-dlp Setup..."
@@ -26,8 +28,8 @@ if not exist "%~dp0%YTDLPFILENAME%" (
     ECHO "Done."
     ECHO.
     ECHO ""%YTDLPFILENAME%" does not exist. Fetching "%YTDLPFILENAME%"..."
-    "%~dp0bin\\%ARCH%\\wget.exe" --no-hsts -q --show-progress -P "%~dp0." "%YTDLPURL%"
-    if exist "%~dp0%YTDLPFILENAME%" (
+    "%SCRIPTPATH%bin\%ARCH%\wget.exe" --no-hsts -q --show-progress -P "%SCRIPTPATH%." "%YTDLPURL%"
+    if exist "%SCRIPTPATH%%YTDLPFILENAME%" (
         ECHO "Done."
         ECHO.
     ) else (
@@ -35,7 +37,7 @@ if not exist "%~dp0%YTDLPFILENAME%" (
         exit /b 1
     )
 ) else (
-    if exist "%~dp0%YTDLPFILENAME%" (
+    if exist "%SCRIPTPATH%%YTDLPFILENAME%" (
         timeout /t 1 /nobreak >nul
         ECHO.
         ECHO "Starting yt-dlp Setup..."
@@ -46,22 +48,22 @@ if not exist "%~dp0%YTDLPFILENAME%" (
 )
 ECHO "Checking for available yt-dlp updates..."
 ECHO "We'll only update if necessary."
-"%~dp0%YTDLPFILENAME%" -U
+"%SCRIPTPATH%%YTDLPFILENAME%" -U
 ECHO "Done."
 ECHO.
 ECHO "Checking for yt-dlp ffmpeg..."
 ECHO "We'll only download it if necessary."
-"%~dp0bin\\%ARCH%\\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%~dp0bin\\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
+"%SCRIPTPATH%bin\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%bin\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
 ECHO "Done."
 ECHO.
 ECHO "Extracting yt-dlp ffmpeg..."
-"%~dp0bin\\%ARCH%\\7za.exe" e "%~dp0bin\\ffmpeg_dl\\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
+"%SCRIPTPATH%bin\%ARCH%\7za.exe" e "%SCRIPTPATH%bin\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffmpeg.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffplay.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffprobe.exe" ^
-    -o"%~dp0." -y >nul
+    -o"%SCRIPTPATH%." -y >nul
 ECHO "Done."
 ECHO.
 endlocal
 ECHO "yt-dlp Setup has completed successfully."
-exit
+exit /B
