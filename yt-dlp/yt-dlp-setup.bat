@@ -7,17 +7,17 @@ setlocal
 if defined PROCESSOR_ARCHITEW6432 (
     set "ARCH=x64"
     set "ARCHBITS=64"
-    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"
+    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp.exe"
     set "YTDLPFILENAME=yt-dlp.exe"
 ) else if "%PROCESSOR_ARCHITECTURE%"=="AMD64" (
     set "ARCH=x64"
     set "ARCHBITS=64"
-    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe"
+    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp.exe"
     set "YTDLPFILENAME=yt-dlp.exe"
 ) else (
     set "ARCH=x86"
     set "ARCHBITS=32"
-    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_%ARCH%.exe"
+    set "YTDLPURL=https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp_%ARCH%.exe"
     set "YTDLPFILENAME=yt-dlp_%ARCH%.exe"
 )
 if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
@@ -48,7 +48,7 @@ if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
 )
 ECHO "Checking for available yt-dlp updates..."
 ECHO "We'll only update if necessary."
-"%SCRIPTPATH%%YTDLPFILENAME%" -U
+"%SCRIPTPATH%%YTDLPFILENAME%" --update-to nightly@latest
 ECHO "Done."
 ECHO.
 ECHO "Checking for yt-dlp ffmpeg..."
