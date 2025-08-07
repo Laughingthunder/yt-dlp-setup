@@ -27,6 +27,7 @@ if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
     timeout /t 1 /nobreak >nul
     ECHO "Done."
     ECHO.
+    timeout /t 1 /nobreak >nul
     ECHO ""%YTDLPFILENAME%" does not exist. Fetching "%YTDLPFILENAME%"..."
     "%SCRIPTPATH%bin\%ARCH%\wget.exe" --no-hsts -q --show-progress -P "%SCRIPTPATH%." "%YTDLPURL%"
     if exist "%SCRIPTPATH%%YTDLPFILENAME%" (
@@ -44,6 +45,7 @@ if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
         timeout /t 1 /nobreak >nul
         ECHO "Done."
         ECHO.
+        timeout /t 1 /nobreak >nul
     )
 )
 ECHO "Checking for available yt-dlp updates..."
@@ -51,11 +53,13 @@ ECHO "We'll only update if necessary."
 "%SCRIPTPATH%%YTDLPFILENAME%" --update-to nightly@latest
 ECHO "Done."
 ECHO.
+timeout /t 1 /nobreak >nul
 ECHO "Checking for yt-dlp ffmpeg..."
 ECHO "We'll only download it if necessary."
 "%SCRIPTPATH%bin\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%bin\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
 ECHO "Done."
 ECHO.
+timeout /t 1 /nobreak >nul
 ECHO "Extracting yt-dlp ffmpeg..."
 "%SCRIPTPATH%bin\%ARCH%\7za.exe" e "%SCRIPTPATH%bin\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffmpeg.exe" ^
@@ -64,6 +68,7 @@ ECHO "Extracting yt-dlp ffmpeg..."
     -o"%SCRIPTPATH%." -y >nul
 ECHO "Done."
 ECHO.
+timeout /t 1 /nobreak >nul
 endlocal
 ECHO "yt-dlp Setup has completed successfully."
 exit /B
