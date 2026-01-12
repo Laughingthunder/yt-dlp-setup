@@ -20,6 +20,16 @@ if defined PROCESSOR_ARCHITEW6432 (
     set "YTDLPURL=https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp_%ARCH%.exe"
     set "YTDLPFILENAME=yt-dlp_%ARCH%.exe"
 )
+REM CA bundle self-update (requires an initial bundle already present)
+set "CADIR=%SCRIPTPATH%bin\ca"
+set "CABUNDLE=%CADIR%\ca-bundle.crt"
+set "CAFETCH=%CADIR%\cacert.pem"
+set "SSL_CERT_FILE=%CABUNDLE%"
+set "CAURL=https://curl.se/ca/cacert.pem"
+"%SCRIPTPATH%bin\%ARCH%\wget.exe" -N --no-hsts -q -P "%CADIR%" "%CAURL%"
+if not errorlevel 1 (
+    copy /y "%CAFETCH%" "%CABUNDLE%" >nul
+)
 if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
     timeout /t 1 /nobreak >nul
     ECHO.
