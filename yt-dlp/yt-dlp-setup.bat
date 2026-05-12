@@ -1,5 +1,5 @@
 @echo off
-REM yt-dlp Setup: Download and update yt-dlp.
+REM yt-dlp Setup: Download and update yt-dlp and components.
 title "yt-dlp Setup"
 set "SCRIPTPATH=%~dp0"
 cd /d "%SCRIPTPATH%"
@@ -26,11 +26,11 @@ if defined PROCESSOR_ARCHITEW6432 (
     set "YTDLPURL=https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/latest/download/yt-dlp_%ARCH%.exe"
     set "YTDLPFILENAME=yt-dlp_%ARCH%.exe"
 )
-set "CADIR=%SCRIPTPATH%bin\ca_dl"
+set "CADIR=%SCRIPTPATH%yt-dlp_bin\dl\ca_dl"
 set "CABUNDLE=%CADIR%\ca-bundle.crt"
 set "CAFETCH=%CADIR%\cacert.pem"
 set "CAURL=https://curl.se/ca/cacert.pem"
-"%SCRIPTPATH%bin\system\%ARCH%\wget.exe" -N --no-hsts -q -P "%CADIR%" "%CAURL%"
+"%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\wget.exe" -N --no-hsts -q -P "%CADIR%" "%CAURL%"
 if not errorlevel 1 (
     copy /y "%CAFETCH%" "%CABUNDLE%" >nul
 )
@@ -47,7 +47,7 @@ if not exist "%SCRIPTPATH%%YTDLPFILENAME%" (
     ECHO.
     timeout /t 1 /nobreak >nul
     ECHO ""%YTDLPFILENAME%" does not exist. Fetching "%YTDLPFILENAME%"..."
-    "%SCRIPTPATH%bin\system\%ARCH%\wget.exe" --no-hsts -q --show-progress -P "%SCRIPTPATH%." "%YTDLPURL%"
+    "%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\wget.exe" --no-hsts -q --show-progress -P "%SCRIPTPATH%." "%YTDLPURL%"
     if exist "%SCRIPTPATH%%YTDLPFILENAME%" (
         ECHO "Done."
         ECHO.
@@ -74,12 +74,12 @@ ECHO.
 timeout /t 1 /nobreak >nul
 ECHO "Checking for yt-dlp ffmpeg..."
 ECHO "We'll only download it if necessary."
-"%SCRIPTPATH%bin\system\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%bin\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
+"%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%yt-dlp_bin\dl\ffmpeg_dl" "https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win%ARCHBITS%-gpl.zip"
 ECHO "Done."
 ECHO.
 timeout /t 1 /nobreak >nul
 ECHO "Extracting yt-dlp ffmpeg..."
-"%SCRIPTPATH%bin\system\%ARCH%\7za.exe" e "%SCRIPTPATH%bin\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
+"%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\7za.exe" e "%SCRIPTPATH%yt-dlp_bin\dl\ffmpeg_dl\ffmpeg-master-latest-win%ARCHBITS%-gpl.zip" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffmpeg.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffplay.exe" ^
     "ffmpeg-master-latest-win%ARCHBITS%-gpl\bin\ffprobe.exe" ^
@@ -96,12 +96,12 @@ if defined PROCESSOR_ARCHITEW6432 (
 if defined IS64BIT (
     ECHO "Checking for yt-dlp Deno..."
     ECHO "We'll only download it if necessary."
-    "%SCRIPTPATH%bin\system\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%bin\%DENODIR%" "%DENOURL%"
+    "%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\wget.exe" -N --no-hsts -q --show-progress --content-disposition -P "%SCRIPTPATH%yt-dlp_bin\dl\%DENODIR%" "%DENOURL%"
     ECHO "Done."
     ECHO.
     timeout /t 1 /nobreak >nul
     ECHO "Extracting yt-dlp Deno..."
-    "%SCRIPTPATH%bin\system\%ARCH%\7za.exe" e "%SCRIPTPATH%bin\%DENODIR%\deno-x86_64-pc-windows-msvc.zip" ^
+    "%SCRIPTPATH%yt-dlp_bin\system\%ARCH%\7za.exe" e "%SCRIPTPATH%yt-dlp_bin\dl\%DENODIR%\deno-x86_64-pc-windows-msvc.zip" ^
         "%DENOFILENAME%" ^
         -o"%SCRIPTPATH%." -y >nul
     ECHO "Done."
